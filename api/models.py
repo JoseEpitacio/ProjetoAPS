@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib .auth.models import User
 from authentication.serializers import UserSerializer
+from uuid import uuid4
 
 # Create your models here.
 class User(models.Model):
-    id = models.IntegerField(max_length=5)
+    id_user = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     username = models.CharField(max_length=30)
     first_name = models.CharField(max_length=30)
     last_name = models.Charfield(max_Length=30)
@@ -23,8 +24,8 @@ class User(models.Model):
         return
 
 class Loan(models.Model):
+    id_loan = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE) #importando book_name
-    id = models.IntegerField(max_length=3)
     date_in = models.CharField(max_length=)#verificar Datefield
     date_out = models.CharField(max_length=)#verificar Datefield
     user = models.ForeignKey(User, on_delete=models.CASCADE) #importando username
@@ -39,7 +40,7 @@ class Loan(models.Model):
         return 
 
 class Book(models.Model):
-    id = models.IntegerField(max_length=3)
+    id_book = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     book_name = models.CharField(max_length=30)
     book_genre = models.CharField(max_length=20)
     author = models.ForeignKey(Author, on_delete=models.CASCADE) #importando author_name
@@ -62,7 +63,7 @@ class Book(models.Model):
         return
 
 class Author(models.Model):
-    id = models.IntegerField(max_length=3)
+    id_author = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     author_name = models.CharField(max_length=30)
     book = models.ForeignKey(Book, on_delete=models.CASCADE) #importando book_name
 
@@ -79,7 +80,7 @@ class Author(models.Model):
         return
     
 class Comment(models.Model):
-    id = models.IntegerField(max_length=3)
+    id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE) #importando username
     book = models.ForeignKey(Book, on_delete=models.CASCADE) #importando book_name
     content = models.CharField(max_length=250) #verificar length
