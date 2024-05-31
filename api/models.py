@@ -48,6 +48,7 @@ class Book(models.Model):
     id_book = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     book_name = models.CharField(max_length=30)
     book_genre = models.CharField(max_length=20)
+    book_img = models.URLField(null=True)
     authors = models.ManyToManyField(Author) #importando author
     available = models.BooleanField(default=True)
     num_pages = models.IntegerField(max_length=4)
@@ -88,8 +89,9 @@ class Loan(models.Model):
 class Comment(models.Model):
     id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE) #importando username
-    book = models.ForeignKey(Book, on_delete=models.CASCADE) #importando book_name
+    book = models.ForeignKey(Book, related_name="comments", on_delete=models.CASCADE) #importando book_name
     content = models.CharField(max_length=250) #verificar length
+    comment_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__ (self):
         return self.content
@@ -99,7 +101,6 @@ class Comment(models.Model):
     
     def import_book_name(self):
         return self.book.book_name
-    
 
 
 
