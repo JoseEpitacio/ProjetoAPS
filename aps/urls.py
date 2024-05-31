@@ -22,16 +22,15 @@ from api import viewsets as vs
 
 route = routers.DefaultRouter()
 
-route.register(r'users/', vs.UserViewset, basename="Users")
-route.register(r'loans/', vs.LoanViewset, basename="Loans")
-route.register(r'books/', vs.BookViewset, basename="Books")
-route.register(r'authors/', vs.AuthorViewset, basename="Authors")
-route.register(r'comments/', vs.CommentViewset, basename="Comments")
+route.register(r'loan', vs.LoanViewset, basename="Loans")
+route.register(r'book', vs.BookViewset, basename="Books")
+route.register(r'author', vs.AuthorViewset, basename="Authors")
+route.register(r'comment', vs.CommentViewset, basename="Comments")
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('authentication.urls'))
+    path('api/auth/', include('authentication.urls')),
     path('', include(route.urls))
 ]

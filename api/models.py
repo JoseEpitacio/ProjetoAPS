@@ -1,9 +1,8 @@
 from django.db import models
-from django.contrib .auth.models import User
-from authentication.serializers import UserSerializer
+from django.contrib .auth import get_user_model
 from uuid import uuid4
 
-# Create your models here.
+'''
 class User(models.Model):
     id_user = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     username = models.CharField(max_length=30)
@@ -22,35 +21,44 @@ class User(models.Model):
     
     def edit_user(self):
         return
+'''
 
-class Loan(models.Model):
-    id_loan = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE) #importando book_name
-    date_in = models.CharField(max_length=)#verificar Datefield
-    date_out = models.CharField(max_length=)#verificar Datefield
-    user = models.ForeignKey(User, on_delete=models.CASCADE) #importando username
+User = get_user_model()
+
+class Author(models.Model):
+    id_author = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    author_name = models.CharField(max_length=30)
+
+    def __str__ (self):
+        return self.author_name
 
     def import_book_name(self):
         return self.book.book_name
     
-    def import_username(self):
-        return self.user.username
-
-    def check_availability(self):
-        return 
+    '''def create_author(self):
+        return
+    
+    def delete_author(self):
+        return
+    
+    def edit_author(self):
+        return'''
 
 class Book(models.Model):
     id_book = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     book_name = models.CharField(max_length=30)
     book_genre = models.CharField(max_length=20)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE) #importando author_name
+    authors = models.ManyToManyField(Author) #importando author
     available = models.BooleanField(default=True)
     num_pages = models.IntegerField(max_length=4)
 
+    def __str__ (self):
+        return self.book_name
+    
     def import_author_name(self):
         return self.author.author_name
     
-    def create_book(self):
+    '''def create_book(self):
         return
     
     def delete_book(self):
@@ -60,24 +68,22 @@ class Book(models.Model):
         return
     
     def change_availability(self):
-        return
+        return'''
 
-class Author(models.Model):
-    id_author = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    author_name = models.CharField(max_length=30)
+class Loan(models.Model):
+    id_loan = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE) #importando book_name
+    date_in = models.DateField#verificar Datefield
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #importando username
 
+    def __str__ (self):
+        return self.book.book_name
+    
     def import_book_name(self):
         return self.book.book_name
     
-    def create_author(self):
-        return
-    
-    def delete_author(self):
-        return
-    
-    def edit_author(self):
-        return
+    def import_username(self):
+        return self.user.username
     
 class Comment(models.Model):
     id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -85,20 +91,14 @@ class Comment(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE) #importando book_name
     content = models.CharField(max_length=250) #verificar length
 
+    def __str__ (self):
+        return self.content
+    
     def import_username(self):
         return self.user.username
     
     def import_book_name(self):
         return self.book.book_name
-    
-    def create_comment(self):
-        return
-    
-    def delete_comment(self):
-        return
-    
-    def edit_comment(self):
-        return
     
 
 

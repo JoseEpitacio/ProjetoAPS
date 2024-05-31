@@ -1,27 +1,41 @@
 from rest_framework import serializers
-from api import models
+from .models import Book, Author, Comment, Loan
 
-class UserSerializer(serializers.ModelSerializer):
+'''class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = '__all__'
+'''
 
 class LoanSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Loan
+        model = Loan
         fields = '__all__'
 
 class BookSerializer(serializers.ModelSerializer):
+    authors = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='author_name'
+    )
+
+    authors_ids = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Author.objects.all(),
+        source='authors',
+        write_only=True
+    )
+
     class Meta:
-        model = models.Book
-        fields = '__all__'
+        model = Book
+        fields = ('id_book', 'book_name', 'book_genre', 'authors', 'authors_ids', 'available', 'num_pages')
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Author
+        model = Author
         fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Comment
+        model = Comment
         fields = '__all__'
