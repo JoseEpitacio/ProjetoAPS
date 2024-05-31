@@ -1,23 +1,46 @@
-from rest_framework import serializers
-from django.contrib.auth.models import User
-from uuid import uuid4
+from rest_framework import serializers, exceptions
+from django.contrib.auth import get_user_model, authenticate
 
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=65, min_length=8, write_only=True)
-    email = serializers.EmailField(max_length=255, min_length=4)
-    first_name = serializers.CharField(max_length=255, min_length=4)
-    last_name = serializers.CharField(max_length=255, min_length=4)
 
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+class UserRegistrationSerializer(serializers.ModelSerializer):
+	password = serializers.CharField(max_length=65, min_length=8, style={'input_type': 'password'})
+	class Meta:
+		model = get_user_model()
+		fields = ['email', 'username', 'first_name', 'last_name', 'password']
 
-    def validate(self, attrs):
-        email = attrs.get('email', '')
-        if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError(
-                {'email': ('E-mail is already in use')})
-        return super().validate(attrs)
-    
-    def create(self, validatedData):
-        return User.objects.create_user(**validatedData)
+	def create(self, validated_data):
+		user_password = validated_data.get('password', None)
+		db_instance = self.Meta.model(email=validated_data.get('email'), username=validated_data.get('username'), first_name=validated_data.get('first_name'), last_name=validated_data.get('last_name'))
+		db_instance.set_password(user_password)
+		db_instance.save()
+		return db_instance
+
+
+
+class UserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=100)
+    password = serializers.CharField(max_length=100, min_length=8, style={'input_type': 'password'})
+    token = serializers.CharField(max_length=255, read_only=True)
+
+    def validate(self, data):
+        username = data.get('username', '')
+        password = data.get('password', '')
+
+        if username and password:
+            user = authenticate(request=self.context.get('request'), username=username, password=password)
+            print(user)
+
+            if user:
+                if user.is_active:
+                    data['user'] = user
+                else:
+                    msg = 'User is deactivated.'
+                    raise exceptions.ValidationError(msg)
+            else:
+                msg = 'Unable to log in with provided credentials.'
+                raise exceptions.ValidationError(msg)
+        else:
+            msg = 'Must include "email" and "password".'
+            raise exceptions.ValidationError(msg)
+
+        return data

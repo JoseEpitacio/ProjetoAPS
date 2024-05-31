@@ -17,24 +17,12 @@ class LoanViewset(viewsets.ModelViewSet):
     queryset = models.Loan.objects.all()
 
     def create(self, request, *args, **kwargs):
-        book_id = request.data.get('id_book')
-        book = get_object_or_404(Book, id_book=book_id)
-
+        book = get_object_or_404(Book, pk=request.data['book'])
         if not book.available:
-            return Response({'message': 'Este livro não está disponível'}, status=status.HTTP_400_BAD_REQUEST)
-
-        data = request.data.copy()
-        data['user'] = request.user.id
-        data['book'] = book.id_book
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-
+            return Response({'error': 'Book is not available'}, status=status.HTTP_400_BAD_REQUEST)
         book.available = False
         book.save()
-
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return super().create(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         loan = self.get_object()

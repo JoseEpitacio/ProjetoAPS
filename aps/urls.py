@@ -31,6 +31,6 @@ route.register(r'comment', vs.CommentViewset, basename="Comments")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('authentication.urls')),
+    path('api/', include('authentication.urls')),
     path('', include(route.urls))
 ]
