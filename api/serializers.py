@@ -42,6 +42,11 @@ class BookSerializer(serializers.ModelSerializer):
         fields = ('id_book', 'book_name', 'book_genre', 'authors', 'authors_ids', 'available', 'num_pages', 'book_img', 'comments')
 
 class AuthorSerializer(serializers.ModelSerializer):
+    books = serializers.SerializerMethodField()
+
     class Meta:
         model = Author
-        fields = '__all__'
+        fields = ('id_author', 'author_name', 'books')
+    
+    def get_books(self, obj):
+        return Book.objects.filter(authors=obj).values_list('book_name')
