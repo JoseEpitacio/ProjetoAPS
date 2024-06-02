@@ -1,16 +1,49 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
+import './Home.css';
 
 
 function Home() {
+
+    const [books, setBooks] = useState([])
+
+    const getBooks = async () => {
+        try {
+            const response = await axios.get(
+                'http://127.0.0.1:8000/book/'
+            );
+
+            const data = response.data;
+            setBooks(data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        getBooks()
+    }, [])
+
     return (
-        <div className="container">
-            <h1 className='menu'>Faça seu login aqui:</h1>
-    
-            <div className='div_link'>
-            
-            <Link className='link_menu' to="/login">Login</Link>
-            </div>
+        <div className="main_container">
+            <h1>Livros: </h1>
+            {books.length === 0 ? (<p>Carregando...</p>) : (
+                books.map((book) => (
+                    <div className='books_container'>
+                        <div className="book" key={book.id}>
+                            <img src={book.book_img} alt={book.book_name} />
+                            <h2>{book.book_name}</h2>
+                            <p>Gênero: {book.book_genre}</p>
+                            <p>Autores: {book.authors}</p>
+                            <p>Disponibilidade: {book.available ? 'Disponível' : 'Indisponível'}</p>
+                            <Link to={`/book/${book.id_book}`}>Detalhes</Link>
+                        </div>
+                    </div>
+                ))
+            )}
       </div> 
         
   );

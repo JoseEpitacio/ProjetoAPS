@@ -12,6 +12,8 @@ import {
 import Login from './routes/Login';
 import Home from './routes/Home';
 import Register from './routes/Register';
+import NewBook from './routes/NewBook';
+import Book from './routes/Book';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,9 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },
-      { path: '/register', element: <Register /> }
+      { path: '/register', element: <Register /> },
+      { path: '/newbook', element: <NewBook />},
+      {path: '/book/:id_book', element: <Book />}
     ]
   }
 ]);

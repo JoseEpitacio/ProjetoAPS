@@ -1,9 +1,30 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-    const handleClickRegister = (values) => console.log(values);
+    const navigate = useNavigate();
+
+    const handleClickRegister = (values) => {
+        axios.post('http://127.0.0.1:8000/api/register/', {
+            username: values.username,
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password: values.password
+        })
+        .then(response => {
+            const token = response.data.access_token;
+            localStorage.setItem('token', token);
+            navigate('/');
+            console.log('Cadastro bem sucedido!');
+        })
+        .catch(error => {
+            console.error('Erro: ', error);
+        });
+    ;}
 
     const validation = yup.object().shape({
         username: yup.string().required("Campo obrigatório"),

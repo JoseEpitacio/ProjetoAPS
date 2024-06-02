@@ -2,10 +2,29 @@ import './Login.css';
 import {Formik, Form, Field, ErrorMessage} from"formik";
 import * as yup from "yup";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+    const navigate = useNavigate();
 
-    const handleClickLogin = (values) => console.log(values);
+    const handleClickLogin = (values) => {
+        axios.post('http://127.0.0.1:8000/api/login/', {
+            username: values.username,
+            password: values.password
+        })
+        .then(response => {
+            const token = response.data.access_token;
+            const user_id = response.data.user_id;
+            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('user_id', user_id)
+            navigate('/');
+            console.log('login bem sucedido!');
+        })
+        .catch(error => {
+            console.error('Erro: ', error);
+        });
+    };
 
     const validationLogin = yup.object().shape({
         username: yup.string().required("Campo obrigatório"),
