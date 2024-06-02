@@ -21,25 +21,40 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('id_comment', 'content', 'comment_date', 'book', 'user', 'username')
 
-class BookSerializer(serializers.ModelSerializer):
-    authors = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='author_name'
-    )
+class AuthorNestedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ('id_author', 'author_name')
 
-    authors_ids = serializers.PrimaryKeyRelatedField(
-        many=True,
-        queryset=Author.objects.all(),
-        source='authors',
-        write_only=True
-    )
+class BookSerializer(serializers.ModelSerializer):
+    authors = AuthorNestedSerializer(many=True)
 
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Book
-        fields = ('id_book', 'book_name', 'book_genre', 'authors', 'authors_ids', 'available', 'num_pages', 'book_img', 'comments')
+        fields = ('id_book', 'book_name', 'book_genre', 'authors', 'available', 'num_pages', 'book_img', 'comments')
+        
+    def create(self, validated_data):
+        authors_data = validated_data.pop('authors')
+        book = Book.objects.create(**validated_data)
+
+        for author_data in authors_data:
+            author, created = Author.objects.get_or_create(**author_data)
+            book.authors.add(author)
+
+        return book
+    
+    def update(self, instance, validated_data):
+        authors_data = validated_data.pop('authors')
+        instance = super().update(instance, validated_data)
+
+        instance.authors.clear()
+        for author_data in authors_data:
+            author, created = Author.objects.get_or_create(**author_data)
+            instance.authors.add(author)
+        
+        return instance
 
 class AuthorSerializer(serializers.ModelSerializer):
     books = serializers.SerializerMethodField()

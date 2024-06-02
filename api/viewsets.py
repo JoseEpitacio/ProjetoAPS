@@ -8,6 +8,10 @@ class AuthorViewset(viewsets.ModelViewSet):
     serializer_class = serializers.AuthorSerializer
     queryset = models.Author.objects.all()
 
+class AuthorNestedViewset(viewsets.ModelViewSet):
+    serializer_class = serializers.AuthorNestedSerializer
+    queryset = models.Author.objects.all()
+
 class BookViewset(viewsets.ModelViewSet):
     serializer_class = serializers.BookSerializer
     queryset = models.Book.objects.all()

@@ -25,6 +25,7 @@ route = routers.DefaultRouter()
 route.register(r'loan', vs.LoanViewset, basename="Loans")
 route.register(r'book', vs.BookViewset, basename="Books")
 route.register(r'author', vs.AuthorViewset, basename="Authors")
+route.register(r'author-nested', vs.AuthorNestedViewset, basename="AuthorsNested")
 route.register(r'comment', vs.CommentViewset, basename="Comments")
 
 
