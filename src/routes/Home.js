@@ -37,7 +37,13 @@ function Home() {
                             <img src={book.book_img} alt={book.book_name} />
                             <h2>{book.book_name}</h2>
                             <p>Gênero: {book.book_genre}</p>
-                            <p>Autores: {book.authors}</p>
+                            <p>Autores: 
+                                {book.authors.map(author => (
+                                    <div key={author.id_author}>
+                                        {author.author_name}
+                                    </div>
+                                ))}
+                            </p>
                             <p>Disponibilidade: {book.available ? 'Disponível' : 'Indisponível'}</p>
                             <Link to={`/book/${book.id_book}`}>Detalhes</Link>
                         </div>

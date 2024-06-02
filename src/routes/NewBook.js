@@ -11,7 +11,7 @@ function NewBook() {
     const [authors, setAuthors] = useState([]);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/author/')
+        axios.get('http://127.0.0.1:8000/author-nested/')
         .then(response => {
             setAuthors(response.data);
         })
@@ -20,15 +20,19 @@ function NewBook() {
         });
     }, []);
 
+    const initialValues = {
+        book_name: '',
+        book_genre: '',
+        authors: [],
+        available: true,
+        num_pages: 0,
+        book_img: ''
+    }
+
     const handleClickNewBook = (values) => {
-        axios.post('http://127.0.0.1:8000/book/', {
-            book_name: values.book_name,
-            book_genre: values.book_genre,
-            authors_ids: values.authors_ids,
-            available: true,
-            num_pages: values.num_pages,
-            book_img: values.book_img
-        })
+
+        axios.post('http://127.0.0.1:8000/book/', values
+        )
         .then(response => {
             console.log('Livro cadastrado com sucesso!', response);
             navigate('/');
@@ -41,7 +45,12 @@ function NewBook() {
     const validation = yup.object().shape({
         book_name: yup.string().required("Campo obrigatório"),
         book_genre: yup.string().required("Campo obrigatório"),
-        authors_ids: yup.array().required("Campo obrigatório"),
+        authors: yup.array().of(
+            yup.object().shape({
+                id_author: yup.string().required("Campo obrigatório"),
+                author_name: yup.string().required("Campo obrigatório"),
+            })
+        ),
         book_img: yup.string().required("Campo obrigatório"),
         num_pages: yup.number().required("Campo obrigatório"),
     });
@@ -51,12 +60,7 @@ function NewBook() {
             <h1>Novo Livro</h1>
             <p>Digite os dados do novo livro nos campos abaixo.</p>
             <Formik 
-            initialValues={{ 
-                book_name: '',
-                book_genre: '',
-                authors_ids: [],
-                book_img: '',
-                num_pages: 0}}
+            initialValues={initialValues}
             onSubmit={handleClickNewBook}
             validationSchema={validation}>
                 {({ values }) => (
@@ -72,34 +76,35 @@ function NewBook() {
                         <ErrorMessage name="book_genre" component="span" className="form-error"/>
                     </div>
                     <div className="login-form-group">
-                        <label htmlFor="authors_ids" className="textUser">Autores:</label>
-                        <FieldArray name="authors_ids">
+                        <label htmlFor="authors" className="textUser">Autores:</label>
+                        <FieldArray name="authors">
                             {({ push, remove }) => (
                                 <div>
-                                {authors.map((author, index) => (
-                                    <div key={author.id_author}>
-                                    <label>
-                                        <input
-                                        type="checkbox"
-                                        name={`authors_ids.${index}`}
-                                        value={author.id_author}
-                                        checked={values.authors_ids.includes(author.id_author)}
-                                        onChange={e => {
-                                            if (e.target.checked) push(author.id_author);
-                                            else {
-                                            const idx = values.authors_ids.indexOf(author.id_author);
-                                            if (idx !== -1) remove(idx);
-                                            }
-                                        }}
-                                        />
-                                        {author.author_name}
-                                    </label>
-                                    </div>
-                                ))}
+                                    {authors.map((author, index) => (
+                                        <div key={author.id_author}>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name={`authors[${index}]`}
+                                                    value={JSON.stringify(author)}
+                                                    checked={values.authors.some(a => a.id_author === author.id_author)}
+                                                    onChange={e => {
+                                                        if (e.target.checked) {
+                                                            push(author);
+                                                        } else {
+                                                            const idx = values.authors.findIndex(a => a.id_author === author.id_author);
+                                                            if (idx !== -1) remove(idx);
+                                                        }
+                                                    }}
+                                                />
+                                                {author.author_name}
+                                            </label>
+                                        </div>
+                                    ))}
                                 </div>
                             )}
-                            </FieldArray>
-                        <ErrorMessage name="authors_ids" component="span" className="form-error"/>
+                        </FieldArray>
+                        <ErrorMessage name="authors" component="span" className="form-error"/>
                     </div>
                     <div className="login-form-group">
                         <label for="book_img" className="textUser">Imagem:</label>
