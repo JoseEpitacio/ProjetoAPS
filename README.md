@@ -58,3 +58,58 @@ Compatibilidade: O sistema deve ser compatível com diferentes navegadores da we
 5. **Usuários**:
    - Devem poder recuperar a senha através do e-mail registrado.
    - Administradores podem gerenciar (adicionar, atualizar, remover) usuários.
+
+
+### Como Usuário:
+
+1. **Cadastro e Autenticação**
+   - **Como**: Visitante
+   - **Quero**: Me cadastrar no sistema com um nome de usuário único e senha.
+   - **Para**: Que eu possa acessar os recursos da biblioteca.
+
+2. **Empréstimo de Livros**
+   - **Como**: Usuário autenticado
+   - **Quero**: Buscar e solicitar o empréstimo de um livro disponível.
+   - **Para**: Que eu possa ler o livro.
+
+3. **Gerenciamento de Empréstimos**
+   - **Como**: Usuário autenticado
+   - **Quero**: Ver a lista dos meus livros emprestados e suas datas de devolução.
+   - **Para**: Que eu possa gerenciar meus empréstimos e evitar atrasos.
+
+4. **Comentários**
+   - **Como**: Usuário autenticado
+   - **Quero**: Comentar sobre um livro que li.
+   - **Para**: Que eu possa compartilhar minha opinião com outros usuários.
+
+5. **Atualização de Perfil**
+   - **Como**: Usuário autenticado
+   - **Quero**: Atualizar minhas informações pessoais (exceto nome de usuário).
+   - **Para**: Que minhas informações estejam sempre corretas.
+
+### Como Administrador:
+
+1. **Gerenciamento de Autores**
+   - **Como**: Administrador
+   - **Quero**: Adicionar, atualizar ou remover autores.
+   - **Para**: Manter o catálogo de autores atualizado.
+
+2. **Gerenciamento de Livros**
+   - **Como**: Administrador
+   - **Quero**: Adicionar, atualizar ou remover livros.
+   - **Para**: Manter o catálogo de livros atualizado.
+
+3. **Moderação de Comentários**
+   - **Como**: Administrador
+   - **Quero**: Moderar comentários dos usuários.
+   - **Para**: Garantir que os comentários sejam apropriados.
+
+4. **Gerenciamento de Usuários**
+   - **Como**: Administrador
+   - **Quero**: Adicionar, atualizar ou remover usuários.
+   - **Para**: Gerenciar o acesso ao sistema.
+
+5. **Controle de Empréstimos**
+   - **Como**: Administrador
+   - **Quero**: Ver e gerenciar todos os empréstimos.
+   - **Para**: Garantir que os empréstimos estejam dentro das regras estabelecidas.
