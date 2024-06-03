@@ -2,11 +2,11 @@ Nome do Projeto: Sistema de Gerenciamento de Biblioteca Online
 
 Requisitos Funcionais:
 
-Registro de Usuários: Os usuários podem se registrar no sistema, fornecendo informações básicas como nome, endereço de e-mail e senha.
-Gerenciamento de Livros: Os usuários podem pesquisar livros por título, autor ou categoria. Eles também podem visualizar detalhes dos livros, como sinopse, autor, disponibilidade e número de cópias disponíveis.
-Empréstimo de Livros: Os usuários registrados podem solicitar empréstimos de livros disponíveis. O sistema deve rastrear os empréstimos ativos de cada usuário e a data de devolução prevista.
-Lembrete de disponibilidade: Os usuários podem adicionar um lembrete de livros que estão atualmente emprestados por outros usuários. Quando um livro  estiver disponível, o sistema notificará o usuário que fez o lembrete.
-Avaliações e Comentários: Os usuários podem avaliar e deixar comentários sobre os livros que leram. Outros usuários podem visualizar essas avaliações e comentários ao pesquisar os livros.
+1 - **Registro de Usuários:** Os usuários podem se registrar no sistema, fornecendo informações básicas como nome, endereço de e-mail e senha.
+2 - **Gerenciamento de Livros:** Os usuários podem pesquisar livros por título, autor ou categoria. Eles também podem visualizar detalhes dos livros, como sinopse, autor, disponibilidade e número de cópias disponíveis.
+3 - **Empréstimo de Livros:** Os usuários registrados podem solicitar empréstimos de livros disponíveis. O sistema deve rastrear os empréstimos ativos de cada usuário e a data de devolução prevista.
+4 - **Lembrete de disponibilidade:** Os usuários podem adicionar um lembrete de livros que estão atualmente emprestados por outros usuários. Quando um livro  estiver disponível, o sistema notificará o usuário que fez o lembrete.
+5 - **Avaliações e Comentários:** Os usuários podem avaliar e deixar comentários sobre os livros que leram. Outros usuários podem visualizar essas avaliações e comentários ao pesquisar os livros.
 Requisitos Não Funcionais:
 
 Segurança: O sistema deve garantir a segurança das informações dos usuários, incluindo senhas criptografadas e comunicação segura.
