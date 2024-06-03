@@ -4,13 +4,13 @@ body{
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #111011e7;
+    background-color: #ffffffe7;
 }
 .container {
     width: 400px;
     height: 450px;
     margin: auto;
-    background-color: #fff;
+    background-color: #e7e7e7;
     padding: 20px 15px;
     margin-top: 100px;
     border-radius: 7px;
@@ -182,4 +182,7 @@ body{
   text-decoration: underline;
 }
 
+.author_checkbox{
+  margin: 100px;
+}
 

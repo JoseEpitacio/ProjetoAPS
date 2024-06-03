@@ -67,15 +67,15 @@ function NewBook() {
                     <Form>
                     <div className="login-form-group">
                         <label for="book_name" className="textUser">Nome do Livro:</label>
-                        <Field name="book_name" className="form-field" placeHolder="Nome do Livro:" />
+                        <Field name="book_name" className="form-field" placeholder="Nome do Livro:" />
                         <ErrorMessage name="book_name" component="span" className="form-error"/>
                     </div>
                     <div className="login-form-group">
                         <label for="book_genre" className="textUser">Gênero:</label>
-                        <Field name="book_genre" className="form-field" placeHolder="Gênero:" />
+                        <Field name="book_genre" className="form-field" placeholder="Gênero:" />
                         <ErrorMessage name="book_genre" component="span" className="form-error"/>
                     </div>
-                    <div className="login-form-group">
+                    <div className="author_checkbox">
                         <label htmlFor="authors" className="textUser">Autores:</label>
                         <FieldArray name="authors">
                             {({ push, remove }) => (
@@ -108,7 +108,7 @@ function NewBook() {
                     </div>
                     <div className="login-form-group">
                         <label for="book_img" className="textUser">Imagem:</label>
-                        <Field name="book_img" className="form-field" placeHolder="Imagem:" />
+                        <Field name="book_img" className="form-field" placeholder="Imagem:" />
                         <ErrorMessage name="book_img" component="span" className="form-error"/>
                     </div>
                     <div className="">

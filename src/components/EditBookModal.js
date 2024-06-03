@@ -20,7 +20,6 @@ function EditBookModal( {book: initialBook, onClose} ) {
         .then(response => {
             setAuthors(response.data);
             setLoading(false);
-            console.log(response.data);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -80,7 +79,7 @@ function EditBookModal( {book: initialBook, onClose} ) {
                     <Form>
                     <div className="login-form-group">
                         <label for="book_name" className="textUser">Nome do Livro:</label>
-                        <Field name="book_name" className="form-field" placeHolder="Nome do Livro:" />
+                        <Field name="book_name" className="form-field" placeolder="Nome do Livro:" />
                         <ErrorMessage name="book_name" component="span" className="form-error"/>
                     </div>
                     <div className="login-form-group">
@@ -90,7 +89,7 @@ function EditBookModal( {book: initialBook, onClose} ) {
                     </div>
                     <FieldArray name="authors">
                         {({ form: { setFieldValue, values } }) => (
-                            <div className="login-form-group">
+                            <div className="author_checkbox">
                                 <label htmlFor="authors" className="textUser">Autores:</label>
                                 {loading ? (
                                     <div>Loading...</div>
