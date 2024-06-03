@@ -82,10 +82,6 @@ Compatibilidade: O sistema deve ser compatível com diferentes navegadores da we
    - **Quero**: Comentar sobre um livro que li.
    - **Para**: Que eu possa compartilhar minha opinião com outros usuários.
 
-5. **Atualização de Perfil**
-   - **Como**: Usuário autenticado
-   - **Quero**: Atualizar minhas informações pessoais (exceto nome de usuário).
-   - **Para**: Que minhas informações estejam sempre corretas.
 
 ### Como Administrador:
 
