@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from api.views import UserLoansView
 
 from rest_framework import routers
 from api import viewsets as vs
@@ -27,11 +28,14 @@ route.register(r'book', vs.BookViewset, basename="Books")
 route.register(r'author', vs.AuthorViewset, basename="Authors")
 route.register(r'author-nested', vs.AuthorNestedViewset, basename="AuthorsNested")
 route.register(r'comment', vs.CommentViewset, basename="Comments")
+route.register(r'comment-content', vs.CommentContent, basename="CommentsContent")
+
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('authentication.urls')),
+    path('loans/user/<int:user_id>/', UserLoansView.as_view(), name='user_loans'),
     path('', include(route.urls))
 ]

@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from api import serializers, models
-from .models import Book
+from .models import Book, Loan
 from django.shortcuts import get_object_or_404
 
 class AuthorViewset(viewsets.ModelViewSet):
@@ -24,9 +24,14 @@ class LoanViewset(viewsets.ModelViewSet):
         book = get_object_or_404(Book, pk=request.data['book'])
         if not book.available:
             return Response({'error': 'Book is not available'}, status=status.HTTP_400_BAD_REQUEST)
-        book.available = False
-        book.save()
-        return super().create(request, *args, **kwargs)
+        
+        response = super().create(request, *args, **kwargs)
+        
+        if response.status_code == status.HTTP_201_CREATED:
+            book.available = False
+            book.save()
+        
+        return response
 
     def destroy(self, request, *args, **kwargs):
         loan = self.get_object()
@@ -36,6 +41,10 @@ class LoanViewset(viewsets.ModelViewSet):
 
 class CommentViewset(viewsets.ModelViewSet):
     serializer_class = serializers.CommentSerializer
+    queryset = models.Comment.objects.all()
+
+class CommentContent(viewsets.ModelViewSet):
+    serializer_class = serializers.CommentContentSerializer
     queryset = models.Comment.objects.all()
 
 

@@ -2,16 +2,39 @@ from rest_framework import serializers
 from .models import Book, Author, Comment, Loan
 from authentication.models import User
 
-'''class UserSerializer(serializers.ModelSerializer):
+class BookNestedSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.User
-        fields = '__all__'
-'''
+        model = Book
+        fields = ('id_book', 'book_name')
 
 class LoanSerializer(serializers.ModelSerializer):
+    book = serializers.CharField(write_only=True)
+    book_detail = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Loan
-        fields = '__all__'
+        fields = ('id_loan', 'book', 'book_detail', 'user')
+
+    def get_book_detail(self, obj):
+        return BookNestedSerializer(obj.book).data
+
+    def create(self, validated_data):
+        book_id = validated_data.pop('book')
+        book = Book.objects.get(id_book=book_id)
+        loan = Loan.objects.create(book=book, **validated_data)
+        return loan
+
+    def update(self, instance, validated_data):
+        book_id = validated_data.pop('book')
+        book = Book.objects.get(id_book=book_id)
+        instance.book = book
+        instance.save()
+        return instance
+
+class CommentContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('content',)
 
 class CommentSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
