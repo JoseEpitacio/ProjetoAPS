@@ -9,12 +9,12 @@ Requisitos Funcionais:
 5 - **Avaliações e Comentários:** Os usuários podem avaliar e deixar comentários sobre os livros que leram. Outros usuários podem visualizar essas avaliações e comentários ao pesquisar os livros.
 Requisitos Não Funcionais:
 
-Segurança: O sistema deve garantir a segurança das informações dos usuários, incluindo senhas criptografadas e comunicação segura.
-Desempenho: O sistema deve ser capaz de lidar com um grande número de usuários simultâneos e consultas de banco de dados de forma eficiente, garantindo tempos de resposta rápidos.
-Usabilidade: A interface do usuário deve ser intuitiva e fácil de usar, tanto em dispositivos móveis quanto em desktops.
-Disponibilidade: O sistema deve estar disponível 24 horas por dia, 7 dias por semana, com um tempo de inatividade mínimo planejado para manutenção.
-Escalabilidade: O sistema deve ser dimensionado facilmente para lidar com um aumento no número de usuários e livros sem comprometer o desempenho.
-Compatibilidade: O sistema deve ser compatível com diferentes navegadores da web e dispositivos para garantir uma experiência consistente para todos os usuários.
+**Segurança:** O sistema deve garantir a segurança das informações dos usuários, incluindo senhas criptografadas e comunicação segura.
+**Desempenho:** O sistema deve ser capaz de lidar com um grande número de usuários simultâneos e consultas de banco de dados de forma eficiente, garantindo tempos de resposta rápidos.
+**Usabilidade:** A interface do usuário deve ser intuitiva e fácil de usar, tanto em dispositivos móveis quanto em desktops.
+**Disponibilidade:** O sistema deve estar disponível 24 horas por dia, 7 dias por semana, com um tempo de inatividade mínimo planejado para manutenção.
+**Escalabilidade:** O sistema deve ser dimensionado facilmente para lidar com um aumento no número de usuários e livros sem comprometer o desempenho.
+**Compatibilidade:** O sistema deve ser compatível com diferentes navegadores da web e dispositivos para garantir uma experiência consistente para todos os usuários.
 
 # Sistema de Gerenciamento de Biblioteca Online
 
@@ -109,3 +109,6 @@ Compatibilidade: O sistema deve ser compatível com diferentes navegadores da we
    - **Como**: Administrador
    - **Quero**: Ver e gerenciar todos os empréstimos.
    - **Para**: Garantir que os empréstimos estejam dentro das regras estabelecidas.
+
+
+![image](https://github.com/JoseEpitacio/ProjetoAPS/assets/102174835/8d4ba275-1b50-4ce4-96e4-24a1ba07986f)
