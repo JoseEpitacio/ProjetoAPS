@@ -2,6 +2,7 @@ import axios from "axios";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { React, useState, useEffect } from 'react';
+import "../routes/Book.css"
 
 function EditBookModal( {book: initialBook, onClose} ) {
     const [book, setBook] = useState(initialBook);
@@ -77,26 +78,26 @@ function EditBookModal( {book: initialBook, onClose} ) {
             validationSchema={validation}>
                 {({ }) => (
                     <Form>
-                    <div className="login-form-group">
-                        <label for="book_name" className="textUser">Nome do Livro:</label>
+                    <div className="">
+                        <label for="book_name" className="text-user">Nome do Livro:</label>
                         <Field name="book_name" className="form-field" placeolder="Nome do Livro:" />
                         <ErrorMessage name="book_name" component="span" className="form-error"/>
                     </div>
-                    <div className="login-form-group">
-                        <label for="book_genre" className="textUser">Gênero:</label>
+                    <div className="">
+                        <label for="book_genre" className="text-user">Gênero:</label>
                         <Field name="book_genre" className="form-field" placeHolder="Gênero:" />
                         <ErrorMessage name="book_genre" component="span" className="form-error"/>
                     </div>
                     <FieldArray name="authors">
                         {({ form: { setFieldValue, values } }) => (
-                            <div className="author_checkbox">
-                                <label htmlFor="authors" className="textUser">Autores:</label>
+                            <div className="">
+                                <label htmlFor="authors" className="text-user">Autores:</label>
                                 {loading ? (
                                     <div>Loading...</div>
                                 ) : (
                                     authors.map((author) => {
                                         return (
-                                            <div key={author.id_author}>
+                                            <div className="form-checkbox" key={author.id_author}>
                                                 <label>
                                                     <Field
                                                         type="checkbox"
@@ -112,13 +113,13 @@ function EditBookModal( {book: initialBook, onClose} ) {
                             </div>
                         )}
                     </FieldArray>
-                    <div className="login-form-group">
-                        <label for="book_img" className="textUser">Imagem:</label>
+                    <div className="">
+                        <label for="book_img" className="text-user">Imagem:</label>
                         <Field name="book_img" className="form-field" placeHolder="Imagem:" />
                         <ErrorMessage name="book_img" component="span" className="form-error"/>
                     </div>
                     <div className="">
-                        <label htmlFor="num_pages" className="textUser">Número de Páginas:</label>
+                        <label htmlFor="num_pages" className="text-user">Número de Páginas:</label>
                         <Field name="num_pages" type="number" className="form-field" placeholder="Número de Páginas:" />
                         <ErrorMessage name="num_pages" component="span" className="form-error"/>
                     </div>

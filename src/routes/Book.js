@@ -5,7 +5,7 @@ import EditBookModal from '../components/EditBookModal';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Modal from "react-modal";
-import './Home.css';
+import './Book.css';
 
 function Book() {
     const { id_book } = useParams();
@@ -145,8 +145,8 @@ function Book() {
     return (
         <div className='main_container'>
             <div className='books_container'>
+                <img className="imagemLivro"src={book.book_img} />
                 <h1>{book.book_name}</h1>
-                <img src={book.book_img} />
                 <p>Autores:
                     {book.authors.map(author => (
                         <div key={author.id_author}>
@@ -172,7 +172,7 @@ function Book() {
                     }}
                 >
                     <Form>
-                        <div className="login-form-group">
+                        <div className="">
                             <label for="content" className="textUser">Comentário:</label>
                             <Field name="content" className="form-field" placeholder="Comentário:" />
                             <ErrorMessage name="content" component="span" className="form-error"/>

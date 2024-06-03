@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import "./NewBook.css";
 
 
 function NewBook() {
@@ -65,21 +66,21 @@ function NewBook() {
             validationSchema={validation}>
                 {({ values }) => (
                     <Form>
-                    <div className="login-form-group">
+                    <div className="new-book-group">
                         <label for="book_name" className="textUser">Nome do Livro:</label>
                         <Field name="book_name" className="form-field" placeholder="Nome do Livro:" />
                         <ErrorMessage name="book_name" component="span" className="form-error"/>
                     </div>
-                    <div className="login-form-group">
+                    <div className="new-book-group">
                         <label for="book_genre" className="textUser">Gênero:</label>
                         <Field name="book_genre" className="form-field" placeholder="Gênero:" />
                         <ErrorMessage name="book_genre" component="span" className="form-error"/>
                     </div>
-                    <div className="author_checkbox">
+                    <div className="new-book-group">
                         <label htmlFor="authors" className="textUser">Autores:</label>
                         <FieldArray name="authors">
                             {({ push, remove }) => (
-                                <div>
+                                <div className="checkbox-problem">
                                     {authors.map((author, index) => (
                                         <div key={author.id_author}>
                                             <label>
@@ -106,17 +107,20 @@ function NewBook() {
                         </FieldArray>
                         <ErrorMessage name="authors" component="span" className="form-error"/>
                     </div>
-                    <div className="login-form-group">
+                    <div className="new-book-group">
                         <label for="book_img" className="textUser">Imagem:</label>
                         <Field name="book_img" className="form-field" placeholder="Imagem:" />
                         <ErrorMessage name="book_img" component="span" className="form-error"/>
                     </div>
-                    <div className="">
+                    <div className="new-book-group">
                         <label htmlFor="num_pages" className="textUser">Número de Páginas:</label>
                         <Field name="num_pages" type="number" className="form-field" placeholder="Número de Páginas:" />
                         <ErrorMessage name="num_pages" component="span" className="form-error"/>
                     </div>
-                    <button className="button" type='submit'>Cadastrar</button>
+                    <div className="botao-problema">
+                        <button className="button" type='submit'>Cadastrar</button>
+                    </div>
+                    
                 </Form>
                 )}
             </Formik>

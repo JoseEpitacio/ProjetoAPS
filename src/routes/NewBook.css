@@ -1,0 +1,25 @@
+.author_checkbox{
+    display: flex;
+    flex-direction: row;
+}
+
+.new-book-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+
+}
+
+label{
+    margin-top: 30px;
+}
+
+.checkbox-problem{
+    margin-top:60px;
+}
+
+.botao-problema{
+    margin-left: 40%;
+    margin-right: 60%;
+}
